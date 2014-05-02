@@ -35,7 +35,7 @@ class BlockBestSellers extends Module
 	{
 		$this->name = 'blockbestsellers';
 		$this->tab = 'front_office_features';
-		$this->version = '1.5.2';
+		$this->version = '1.5.3';
 		$this->author = 'PrestaShop';
 		$this->need_instance = 0;
 		$this->bootstrap = true;
