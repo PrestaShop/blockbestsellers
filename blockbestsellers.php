@@ -231,6 +231,7 @@ class BlockBestSellers extends Module
 				BlockBestSellers::$cache_best_sellers = $this->getBestSellers($params);
 			$this->smarty->assign(array(
 				'best_sellers' => BlockBestSellers::$cache_best_sellers,
+				'display_link_bestsellers' => Configuration::get('PS_DISPLAY_BEST_SELLERS'),
 				'mediumSize' => Image::getSize(ImageType::getFormatedName('medium')),
 				'smallSize' => Image::getSize(ImageType::getFormatedName('small'))
 			));
