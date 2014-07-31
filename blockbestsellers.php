@@ -50,6 +50,7 @@ class BlockBestSellers extends Module
 	public function install()
 	{
 		$this->_clearCache('*');
+		Configuration::updateValue('BEST_SELLERS_NBR', 8);
 
 		if (!parent::install()
 			|| !$this->registerHook('header')
@@ -122,7 +123,19 @@ class BlockBestSellers extends Module
 		if (Tools::isSubmit('submitBestSellers'))
 		{
 			Configuration::updateValue('PS_BLOCK_BESTSELLERS_DISPLAY', (int)Tools::getValue('PS_BLOCK_BESTSELLERS_DISPLAY'));
-			$output .= $this->displayConfirmation($this->l('Settings updated'));
+
+			$nbr = (int)Tools::getValue('BEST_SELLERS_NBR');
+			if (!$nbr || $nbr <= 0 || !Validate::isInt($nbr))
+				$errors[] = $this->l('An invalid number of products has been specified.');
+			else
+			{
+				$this->_clearCache();
+				Configuration::updateValue('BEST_SELLERS_NBR', (int)$nbr);
+			}
+			if (isset($errors) && count($errors))
+				$output .= $this->displayError(implode('<br />', $errors));
+			else
+				$output .= $this->displayConfirmation($this->l('Your settings have been updated.'));
 		}
 
 		return $output.$this->renderForm();
@@ -155,7 +168,14 @@ class BlockBestSellers extends Module
 								'label' => $this->l('Disabled')
 							)
 						),
-					)
+					),
+					array(
+						'type' => 'text',
+						'label' => $this->l('Number of products to be displayed'),
+						'name' => 'BEST_SELLERS_NBR',
+						'class' => 'fixed-width-xs',
+						'desc' => $this->l('Set the number of products that you would like to display.'),
+					),
 				),
 				'submit' => array(
 					'title' => $this->l('Save')
@@ -176,7 +196,7 @@ class BlockBestSellers extends Module
 		$helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name.'&tab_module='.$this->tab.'&module_name='.$this->name;
 		$helper->token = Tools::getAdminTokenLite('AdminModules');
 		$helper->tpl_vars = array(
-			'fields_value' => array('PS_BLOCK_BESTSELLERS_DISPLAY' => Tools::getValue('PS_BLOCK_BESTSELLERS_DISPLAY', Configuration::get('PS_BLOCK_BESTSELLERS_DISPLAY'))),
+			'fields_value' => $this->getConfigFieldsValues(),
 			'languages' => $this->context->controller->getLanguages(),
 			'id_language' => $this->context->language->id
 		);
@@ -184,6 +204,14 @@ class BlockBestSellers extends Module
 		return $helper->generateForm(array($fields_form));
 	}
 
+	public function getConfigFieldsValues()
+	{
+		return array(
+			'BEST_SELLERS_NBR' => Tools::getValue('BEST_SELLERS_NBR', Configuration::get('BEST_SELLERS_NBR')),
+			'PS_BLOCK_BESTSELLERS_DISPLAY' => Tools::getValue('PS_BLOCK_BESTSELLERS_DISPLAY', Configuration::get('PS_BLOCK_BESTSELLERS_DISPLAY')),
+		);
+	}
+	
 	public function hookHeader($params)
 	{
 		if (Configuration::get('PS_CATALOG_MODE'))
@@ -253,7 +281,8 @@ class BlockBestSellers extends Module
 		if (Configuration::get('PS_CATALOG_MODE'))
 			return false;
 
-		if (!($result = ProductSale::getBestSalesLight((int)$params['cookie']->id_lang, 0, 8)))
+		$nb = (int)Configuration::get('BEST_SELLERS_NBR');
+		if (!($result = ProductSale::getBestSalesLight((int)$params['cookie']->id_lang, 0, ($nb ? $nb : 8))))
 			return (Configuration::get('PS_BLOCK_BESTSELLERS_DISPLAY') ? array() : false);
 
 		$currency = new Currency($params['cookie']->id_currency);
