@@ -124,6 +124,7 @@ class BlockBestSellers extends Module
 		{
 			Configuration::updateValue('PS_BLOCK_BESTSELLERS_DISPLAY', (int)Tools::getValue('PS_BLOCK_BESTSELLERS_DISPLAY'));
 			Configuration::updateValue('PS_BLOCK_BESTSELLERS_TO_DISPLAY', (int)Tools::getValue('PS_BLOCK_BESTSELLERS_TO_DISPLAY'));
+			$this->_clearCache('*');
 			$output .= $this->displayConfirmation($this->l('Settings updated'));
 		}
 
