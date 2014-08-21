@@ -29,5 +29,5 @@ if (!defined('_PS_VERSION_'))
 
 function upgrade_module_1_5_5($object)
 {
-  return Db::getInstance()->insert('configuration', array('name' => 'PS_BLOCK_BESTSELLERS_TO_DISPLAY', 'value' => 10));
+	return Configuration::updateValue('PS_BLOCK_BESTSELLERS_TO_DISPLAY', 10);
 }
