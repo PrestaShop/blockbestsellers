@@ -63,18 +63,6 @@ class BlockBestSellers extends Module
 		)
 			return false;
 
-		// Hook the module either on the left or right column
-		$theme = new Theme(Context::getContext()->shop->id_theme);
-		if ((!$theme->default_left_column || !$this->registerHook('leftColumn'))
-			&& (!$theme->default_right_column || !$this->registerHook('rightColumn'))
-		)
-		{
-			// If there are no colums implemented by the template, throw an error and uninstall the module
-			$this->_errors[] = $this->l('This module need to be hooked in a column and your theme does not implement one');
-			parent::uninstall();
-
-			return false;
-		}
 		Configuration::updateValue('PS_BLOCK_BESTSELLERS_TO_DISPLAY', 10);
 
 		return true;
