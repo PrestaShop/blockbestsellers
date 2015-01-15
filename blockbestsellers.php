@@ -53,6 +53,7 @@ class BlockBestSellers extends Module
 
 		if (!parent::install()
 			|| !$this->registerHook('header')
+			|| !$this->registerHook('leftColumn')
 			|| !$this->registerHook('actionOrderStatusPostUpdate')
 			|| !$this->registerHook('addproduct')
 			|| !$this->registerHook('updateproduct')
