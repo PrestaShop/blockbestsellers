@@ -96,9 +96,9 @@ class BlockBestSellers extends Module
 		$this->_clearCache('*');
 	}
 
-	public function _clearCache($template, $cache_id = NULL, $compile_id = NULL)
+	public function _clearCache($template, $cache_id = null, $compile_id = null)
 	{
-		parent::_clearCache('blockbestsellers.tpl');
+		parent::_clearCache('blockbestsellers.tpl', 'blockbestsellers-col');
 		parent::_clearCache('blockbestsellers-home.tpl', 'blockbestsellers-home');
 		parent::_clearCache('tab.tpl', 'blockbestsellers-tab');
 	}
@@ -214,7 +214,7 @@ class BlockBestSellers extends Module
 		return $this->display(__FILE__, 'tab.tpl', $this->getCacheId('blockbestsellers-tab'));
 	}
 
-	public function hookdisplayHomeTabContent($params)
+	public function hookDisplayHomeTabContent($params)
 	{
 		if (!$this->isCached('blockbestsellers-home.tpl', $this->getCacheId('blockbestsellers-home')))
 		{
