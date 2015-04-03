@@ -48,7 +48,10 @@
                         <p>
                             <a href="{$product.link|escape:'html'}" title="{$product.legend|escape:'html':'UTF-8'}">
                                 {$product.name|strip_tags:'UTF-8'|escape:'html':'UTF-8'}<br/>
-                                {if !$PS_CATALOG_MODE}<span class="price">{$product.price}</span>{/if}
+                                {if !$PS_CATALOG_MODE}
+                                    <span class="price">{$product.price}</span>
+                                    {hook h="displayProductPriceBlock" product=$product type="price"}
+                                {/if}
                             </a>
                         </p>
                         {/if}
