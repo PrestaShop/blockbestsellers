@@ -273,6 +273,14 @@ class BlockBestSellers extends Module
 		foreach ($result as &$row)
 			$row['price'] = Tools::displayPrice(Product::getPriceStatic((int)$row['id_product'], $usetax), $currency);
 
+		Hook::exec(
+			'actionProductListModifier',
+			array(
+				'nb_products' => null,
+				'cat_products' => &$result
+			)
+		);
+
 		return $result;
 	}
 }
