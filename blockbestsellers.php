@@ -273,6 +273,9 @@ class BlockBestSellers extends Module
 		foreach ($result as &$row)
 			$row['price'] = Tools::displayPrice(Product::getPriceStatic((int)$row['id_product'], $usetax), $currency);
 
+		if (version_compare(_PS_VERSION_, '1.6.0', '>=') === true)
+			$this->context->controller->addColorsToProductList($result);
+			
 		return $result;
 	}
 }
