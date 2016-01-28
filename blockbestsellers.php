@@ -220,7 +220,7 @@ class BlockBestSellers extends Module
 		{
 			$this->smarty->assign(array(
 				'best_sellers' => BlockBestSellers::$cache_best_sellers,
-				'homeSize' => Image::getSize(ImageType::getFormatedName('home'))
+				'homeSize' => Image::getSize(ImageType::getFormattedName('home'))
 			));
 		}
 
@@ -244,8 +244,8 @@ class BlockBestSellers extends Module
 			$this->smarty->assign(array(
 				'best_sellers' => BlockBestSellers::$cache_best_sellers,
 				'display_link_bestsellers' => Configuration::get('PS_DISPLAY_BEST_SELLERS'),
-				'mediumSize' => Image::getSize(ImageType::getFormatedName('medium')),
-				'smallSize' => Image::getSize(ImageType::getFormatedName('small'))
+				'mediumSize' => Image::getSize(ImageType::getFormattedName('medium')),
+				'smallSize' => Image::getSize(ImageType::getFormattedName('small'))
 			));
 		}
 
