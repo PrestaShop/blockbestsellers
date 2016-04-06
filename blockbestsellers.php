@@ -218,6 +218,9 @@ class BlockBestSellers extends Module
 	{
 		if (!$this->isCached('blockbestsellers-home.tpl', $this->getCacheId('blockbestsellers-home')))
 		{
+			if (!isset(BlockBestSellers::$cache_best_sellers)) {
+				BlockBestSellers::$cache_best_sellers = $this->getBestSellers($params);
+			}
 			$this->smarty->assign(array(
 				'best_sellers' => BlockBestSellers::$cache_best_sellers,
 				'homeSize' => Image::getSize(ImageType::getFormatedName('home'))
