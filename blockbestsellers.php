@@ -42,8 +42,8 @@ class BlockBestSellers extends Module
 
 		parent::__construct();
 
-		$this->displayName = $this->l('Top-sellers block');
-		$this->description = $this->l('Adds a block displaying your store\'s top-selling products.');
+		$this->displayName = $this->getTranslator()->trans('Top-sellers block', array(), 'Modules.BlockBestSellers.Admin');
+		$this->description = $this->getTranslator()->trans('Adds a block displaying your store\'s top-selling products.', array(), 'Modules.BlockBestSellers.Admin');
 		$this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
 	}
 
@@ -114,7 +114,7 @@ class BlockBestSellers extends Module
 			Configuration::updateValue('PS_BLOCK_BESTSELLERS_DISPLAY', (int)Tools::getValue('PS_BLOCK_BESTSELLERS_DISPLAY'));
 			Configuration::updateValue('PS_BLOCK_BESTSELLERS_TO_DISPLAY', (int)Tools::getValue('PS_BLOCK_BESTSELLERS_TO_DISPLAY'));
 			$this->_clearCache('*');
-			$output .= $this->displayConfirmation($this->l('Settings updated'));
+			$output .= $this->displayConfirmation($this->getTranslator()->trans('Settings updated.', array(), 'Admin.Notifications.Success'));
 		}
 
 		return $output.$this->renderForm();
@@ -125,39 +125,39 @@ class BlockBestSellers extends Module
 		$fields_form = array(
 			'form' => array(
 				'legend' => array(
-					'title' => $this->l('Settings'),
+					'title' => $this->getTranslator()->trans('Settings', array(), 'Admin.Global'),
 					'icon' => 'icon-cogs'
 				),
 				'input' => array(
 					array(
 						'type' => 'text',
-						'label' => $this->l('Products to display'),
+						'label' => $this->getTranslator()->trans('Products to display', array(), 'Modules.BlockBestSellers.Admin'),
 						'name' => 'PS_BLOCK_BESTSELLERS_TO_DISPLAY',
-						'desc' => $this->l('Determine the number of product to display in this block'),
+						'desc' => $this->getTranslator()->trans('Determine the number of product to display in this block', array(), 'Modules.BlockBestSellers.Admin'),
 						'class' => 'fixed-width-xs',
 					),
 					array(
 						'type' => 'switch',
-						'label' => $this->l('Always display this block'),
+						'label' => $this->getTranslator()->trans('Always display this block', array(), 'Modules.BlockBestSellers.Admin'),
 						'name' => 'PS_BLOCK_BESTSELLERS_DISPLAY',
-						'desc' => $this->l('Show the block even if no best sellers are available.'),
+						'desc' => $this->getTranslator()->trans('Show the block even if no best sellers are available.', array(), 'Modules.BlockBestSellers.Admin'),
 						'is_bool' => true,
 						'values' => array(
 							array(
 								'id' => 'active_on',
 								'value' => 1,
-								'label' => $this->l('Enabled')
+								'label' => $this->getTranslator()->trans('Enabled', array(), 'Admin.Global')
 							),
 							array(
 								'id' => 'active_off',
 								'value' => 0,
-								'label' => $this->l('Disabled')
+								'label' => $this->getTranslator()->trans('Disabled', array(), 'Admin.Global')
 							)
 						),
 					)
 				),
 				'submit' => array(
-					'title' => $this->l('Save')
+					'title' => $this->getTranslator()->trans('Save', array(), 'Admin.Actions')
 				)
 			)
 		);
