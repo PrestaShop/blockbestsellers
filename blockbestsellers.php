@@ -204,7 +204,7 @@ class BlockBestSellers extends Module
 	{
 		if (!$this->isCached('tab.tpl', $this->getCacheId('blockbestsellers-tab')))
 		{
-			BlockBestSellers::$cache_best_sellers = $this->getBestSellers($params);
+			$this->_cacheProducts($params);
 			$this->smarty->assign('best_sellers', BlockBestSellers::$cache_best_sellers);
 		}
 
@@ -218,6 +218,7 @@ class BlockBestSellers extends Module
 	{
 		if (!$this->isCached('blockbestsellers-home.tpl', $this->getCacheId('blockbestsellers-home')))
 		{
+			$this->_cacheProducts($params);
 			$this->smarty->assign(array(
 				'best_sellers' => BlockBestSellers::$cache_best_sellers,
 				'homeSize' => Image::getSize(ImageType::getFormatedName('home'))
@@ -258,6 +259,14 @@ class BlockBestSellers extends Module
 	public function hookLeftColumn($params)
 	{
 		return $this->hookRightColumn($params);
+	}
+
+	protected function _cacheProducts($params)
+	{
+		if (!isset(BlockBestSellers::$cache_best_sellers)) {
+			BlockBestSellers::$cache_best_sellers = $this->getBestSellers($params);
+		}
+		return BlockBestSellers::$cache_best_sellers;
 	}
 
 	protected function getBestSellers($params)
