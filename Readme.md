@@ -9,4 +9,4 @@ It has been remade for PrestaShop 1.7: https://github.com/PrestaShop/ps_bestsell
 ---
 ## About
 
-Adds a block displaying your store\'s top-selling products in PrestaShop 1.6.
+Adds a block displaying your store's top-selling products in PrestaShop 1.6.
